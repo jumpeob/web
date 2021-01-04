@@ -1,4 +1,4 @@
-package conn;
+package test;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -29,6 +29,19 @@ public class ConnTest2 {
 			Connection con = DriverManager.getConnection(
 					"jdbc:oracle:thin:@localhost:1521/xe","jtest","ezen1234");
 			Statement stmt = con.createStatement();
+			/*
+			 * si_name = 동전한닢
+			 * si_singer = 다듀
+			 * si_genre = 히팝
+			 * si_creadat = 20070531
+			 */
+			String sql = "update song_info";
+			sql += " set si_name='동전한닢',"; // 업데이트 다음에 바로붙기때문에 띄어쓰기 해야함
+			sql += "si_singer='다이네믹듀오',";
+			sql += "si_genre='히팝',";
+			sql += "si_creadat='20070531'";
+			int result = stmt.executeUpdate(sql);
+			System.out.println(result + "개 update되었음");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
