@@ -5,7 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class InsertUserInfo {
+public class UpdateBhcMenu {
+
 	public static void main(String[] args) {
 		
 		try {
@@ -14,25 +15,17 @@ public class InsertUserInfo {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		try {
 			Connection con = DriverManager.getConnection(
 					"jdbc:oracle:thin:@localhost:1521/xe","jtest","ezen1234");
 			Statement stmt = con.createStatement();
-
-			
-			String sql = "INSERT INTO USER_INFO (ui_num,ui_name,ui_id,ui_pwd)";
-			sql += "VALUES (1, '홍길동','hong','hong')";
-
-			String sql1 = "INSERT INTO USER_INFO (ui_num,ui_name,ui_id,ui_pwd)";
-			sql1 += "VALUES (2, '김길동','kim','kim')";
-			
-			String sql2 = "INSERT INTO USER_INFO (ui_num,ui_name,ui_id,ui_pwd)";
-			sql2 += "VALUES (3, '오길동','oh','oh')";
-			
+			String sql = "update bhc_menu";
+			sql+= " set bm_price = 4000";
+			sql+= " where bm_num =4";
 			int result = stmt.executeUpdate(sql);
-			int result1 = stmt.executeUpdate(sql1);
-			int result2 = stmt.executeUpdate(sql2);
-			con.commit();
+			System.out.println(result+"개 업데이트");
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

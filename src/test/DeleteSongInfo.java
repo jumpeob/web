@@ -5,7 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class InsertUserInfo {
+public class DeleteSongInfo {
+
 	public static void main(String[] args) {
 		
 		try {
@@ -14,28 +15,19 @@ public class InsertUserInfo {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		try {
 			Connection con = DriverManager.getConnection(
 					"jdbc:oracle:thin:@localhost:1521/xe","jtest","ezen1234");
+			String sql = "delete from song_info";
 			Statement stmt = con.createStatement();
-
-			
-			String sql = "INSERT INTO USER_INFO (ui_num,ui_name,ui_id,ui_pwd)";
-			sql += "VALUES (1, '홍길동','hong','hong')";
-
-			String sql1 = "INSERT INTO USER_INFO (ui_num,ui_name,ui_id,ui_pwd)";
-			sql1 += "VALUES (2, '김길동','kim','kim')";
-			
-			String sql2 = "INSERT INTO USER_INFO (ui_num,ui_name,ui_id,ui_pwd)";
-			sql2 += "VALUES (3, '오길동','oh','oh')";
-			
-			int result = stmt.executeUpdate(sql);
-			int result1 = stmt.executeUpdate(sql1);
-			int result2 = stmt.executeUpdate(sql2);
-			con.commit();
+			int cnt = stmt.executeUpdate(sql);
+			System.out.println(cnt + "개 삭제되었습니다.");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
 	}
 }

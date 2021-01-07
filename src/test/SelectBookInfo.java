@@ -2,37 +2,35 @@ package test;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class InsertUserInfo {
+public class SelectBookInfo {
+
 	public static void main(String[] args) {
-		
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		try {
 			Connection con = DriverManager.getConnection(
 					"jdbc:oracle:thin:@localhost:1521/xe","jtest","ezen1234");
 			Statement stmt = con.createStatement();
-
+			String sql = "select * from book_info";
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				String str = rs.getString("bi_num")+",";
+				str += rs.getString("bi_name")+",";
+				str += rs.getString("bi_writer")+",";
+				str += rs.getString("bi_vendor")+",";
+				str += rs.getString("bi_credat");
+				System.out.println(str);
+			}
 			
-			String sql = "INSERT INTO USER_INFO (ui_num,ui_name,ui_id,ui_pwd)";
-			sql += "VALUES (1, '홍길동','hong','hong')";
-
-			String sql1 = "INSERT INTO USER_INFO (ui_num,ui_name,ui_id,ui_pwd)";
-			sql1 += "VALUES (2, '김길동','kim','kim')";
-			
-			String sql2 = "INSERT INTO USER_INFO (ui_num,ui_name,ui_id,ui_pwd)";
-			sql2 += "VALUES (3, '오길동','oh','oh')";
-			
-			int result = stmt.executeUpdate(sql);
-			int result1 = stmt.executeUpdate(sql1);
-			int result2 = stmt.executeUpdate(sql2);
-			con.commit();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
